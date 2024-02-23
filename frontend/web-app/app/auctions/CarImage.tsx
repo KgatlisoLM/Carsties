@@ -1,0 +1,32 @@
+'use client'
+
+import Image from "next/image";
+import React, { useState } from "react";
+
+
+type Props = {
+  imageUrl: string
+  make: string
+  model: string
+}
+
+
+function CarImage({imageUrl, make, model}: Props) {
+  let car = make + " " + model;
+  const [isLoading, setLoading] = useState(true);
+
+  return (
+    <Image
+      src={imageUrl}
+      alt={car}
+      fill
+      className={`object-cover group-hover:opacity-75 duration-700 ease-in-out
+      ${isLoading ? 'grayscale blur-2xl scale scale-110': 'grayscale-0 blur-0 scale-100'}`}
+      priority
+      sizes="(max-width:768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+      onLoad={() => setLoading(false)}
+    />
+  );
+}
+
+export default CarImage;
