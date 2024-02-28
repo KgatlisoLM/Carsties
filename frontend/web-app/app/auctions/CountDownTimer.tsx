@@ -24,17 +24,27 @@ const renderer = ({
       className={` text-white py-2 px-3 rounded-bl-md flex justify-center 
         ${
           completed
-            ? "bg-red-600"
+            ? "bg-red-600 bg-opacity-50"
             : days === 0 && hours < 10
             ? "bg-amber-600"
-            : "bg-green-600"
+            : "bg-gray-600 bg-opacity-50"
         }`}
     >
       {completed ? (
         <span>Auction Finished</span>
       ) : (
-        <span>
-         {zeroPad(days)}:{zeroPad(hours)}:{zeroPad(minutes)}:{zeroPad(seconds)}
+        <span className="flex-col">
+          <span className="text-xs">Currently Live</span>
+          <div>
+            {zeroPad(days)}
+            <span className="text-xs"> dd: </span>
+            {zeroPad(hours)}
+            <span className="text-xs"> hh: </span>
+            {zeroPad(minutes)}
+            <span className="text-xs"> mm: </span>
+            {zeroPad(seconds)}
+            <span className="text-xs"> ss</span>
+          </div>
         </span>
       )}
     </div>

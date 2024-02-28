@@ -2,6 +2,7 @@ import car from "@/public/images/bgCar.png";
 import Image from "next/image";
 import Listings from "./auctions/Listings";
 import Search from "./auctions/Search";
+import SearchFilterBox from "./auctions/SearchFilterBox";
 
 export default function Home() {
   return (
@@ -23,20 +24,13 @@ export default function Home() {
           <h2 className="text-7xl font-bold uppercase text-white">
             at Auction
           </h2>
-          <button className="bg-red-500 text-white font-bold py-2 px-4 border-none rounded mt-10">
+          <button className="bg-red-500 text-white font-bold py-2 px-4 border-none rounded-full mt-10">
             Let's Find
           </button>
         </div>
       </div>
       <main className="mx-auto px-6 pt-3">
-        <div className="w-full">
-            <div className="flex w-full">
-               <h2 className="text-2xl font-semibold">Discover</h2> 
-            </div>
-            <div>
-                <Search/>
-            </div>
-        </div>
+        <SearchFilterBox/>
         <div className="container mt-5 mx-auto mb-5">
           <Listings/>
         </div>

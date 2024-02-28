@@ -40,8 +40,18 @@ public static class Config
                RedirectUris = {"http://localhost:3000/api/auth/callback/id-server"},
                AllowOfflineAccess =  true,
                AllowedScopes = {"openid", "profile", "auctionApp"},
-               AccessTokenLifetime = 3600 * 24 * 30 // change to default value in production 3600
-                 
+               AccessTokenLifetime = 3600 * 24 * 30, // change to default value in production 3600
+               AlwaysIncludeUserClaimsInIdToken = true
+                  
+            },
+
+            new Client {
+                ClientId = "reactApp",
+                AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+                ClientSecrets = {  new Secret("secret".Sha256())},
+                AllowedScopes = { "openid", "profile", "reactApp" },
+                AccessTokenLifetime = 3600 * 24 * 30, // change to default value in production 3600
+                AlwaysIncludeUserClaimsInIdToken = true
             }
         };
 }

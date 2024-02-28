@@ -13,11 +13,15 @@ public class SearchController : ControllerBase
    public async Task<ActionResult<List<Item>>> SearchItems([FromQuery]SearchParams searchParams){
       var query = DB.PagedSearch<Item, Item>();
       query.Sort(x => x.Ascending(a => a.Make));
+
       if(!string.IsNullOrEmpty(searchParams.SearchTerm)){
          query.Match(Search.Full, searchParams.SearchTerm).SortByTextScore();
       }
+
+      
       query = searchParams.OrderBy switch{
-         "make" => query.Sort(x => x.Ascending(x => x.Make)),
+         "make" => query.Sort(x => x.Ascending(x => x.Make))
+            .Sort(x => x.Ascending(a => a.Model)),
          "new" => query.Sort(x => x.Descending(x => x.CreatedAt)),
          _ => query.Sort(x => x.Ascending(x => x.AuctionEnd))
       };

@@ -19,11 +19,6 @@ const orderByButtons = [
         value: 'make'
     },
     {
-        label: 'End date',
-        icon:  AiOutlineClockCircle,
-        value: 'endingSoon'
-    },
-    {
         label: 'Recently added',
         icon: BsFillStopCircleFill,
         value: 'new'
@@ -35,11 +30,6 @@ const filterByButtons = [
         label: 'Live Auctions',
         icon: GiFlame,
         value: 'live'
-    },
-    {
-        label: 'End < 6 hours',
-        icon:  GiFinishLine,
-        value: 'endingSoon'
     },
     {
         label: 'Completed',
@@ -59,7 +49,6 @@ function Filters() {
   return (
     <div className='flex justify-between items-center mb-4'>
            <div>
-            <span className='uppercase text-sm text-gray-500 mr-2'>Filter by</span>
             <Button.Group>
                  {filterByButtons.map(({label, icon: Icon, value}) => (
                    <Button 
@@ -74,7 +63,6 @@ function Filters() {
           </div>
 
           <div>
-            <span className='uppercase text-sm text-gray-500 mr-2'>Order by</span>
             <Button.Group>
                  {orderByButtons.map(({label, icon: Icon, value}) => (
                    <Button 
@@ -89,7 +77,6 @@ function Filters() {
           </div>
 
         <div>
-            <span className='uppercase text-sm text-gray-500 mr-2'>Page Size</span>
             <ButtonGroup>
                 {pageSizeButtons.map((value, i) => (
                     <Button key={i} 

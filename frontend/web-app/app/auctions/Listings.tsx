@@ -42,7 +42,6 @@ function Listings() {
 
   return (
     <>
-      <Filters />
       {data.totalCount === 0 ? (
         <EmptyFilter showReset />
       ) : (
