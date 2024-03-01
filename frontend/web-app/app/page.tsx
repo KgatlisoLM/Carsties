@@ -31,7 +31,7 @@ export default function Home() {
       </div>
       <main className="mx-auto px-6 pt-3">
         <SearchFilterBox/>
-        <div className="container mt-5 mx-auto mb-5">
+         <div className="container mt-5 mx-auto mb-5">
           <Listings/>
         </div>
       </main>

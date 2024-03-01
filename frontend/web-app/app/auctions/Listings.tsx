@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import AuctionCard from "./AuctionCard";
 import { Auction, PagedResult } from "@/types/Index";
 import AppPagination from "../components/AppPagination";
-import { getData } from "../actions/auctionAuctions";
+import { getData } from "../actions/auctionActions";
 import Filters from "./Filters";
 import { useParamsStore } from "@/hooks/useParamsStore";
 import { shallow } from "zustand/shallow";
@@ -19,6 +19,8 @@ function Listings() {
       searchTerm: state.searchTerm,
       orderBy: state.orderBy,
       filterBy: state.filterBy,
+      seller: state.seller,
+      winner: state.winner
     }),
     shallow
   );

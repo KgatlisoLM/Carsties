@@ -12,13 +12,12 @@ type Props = {
 
 
 function CarImage({imageUrl, make, model}: Props) {
-  let car = make + " " + model;
   const [isLoading, setLoading] = useState(true);
 
   return (
     <Image
       src={imageUrl}
-      alt={car}
+      alt={`${make} ${model}`}
       fill
       className={`object-cover group-hover:opacity-75 duration-700 ease-in-out
       ${isLoading ? 'grayscale blur-2xl scale scale-110': 'grayscale-0 blur-0 scale-100'}`}

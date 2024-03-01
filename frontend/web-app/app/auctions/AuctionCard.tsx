@@ -1,4 +1,3 @@
-import Image from "next/image";
 import React from "react";
 import CountDownTimer from "./CountDownTimer";
 import CarImage from "./CarImage";
@@ -7,6 +6,7 @@ import { PiEngineFill } from "react-icons/pi";
 import { FaRoad } from "react-icons/fa";
 import { GiCarWheel, GiGearStickPattern } from "react-icons/gi";
 import moment from "moment";
+import Link from "next/link";
 
 type Props = {
   auction: Auction;
@@ -35,7 +35,7 @@ const dateFormat = (date: string) => {
 
   return (
     <div className="border-2 p-2 rounded-xl shadow-lg">
-      <a href="#" className="group">
+      <Link href={`auctions/details/${auction.id}`} className="group">
         <div className="w-full bg-gray-200 aspect-w-16 aspect-h-10 rounded-xl overflow-hidden">
           <div>
               <CarImage imageUrl={auction.imageUrl} make={auction.make} model={auction.model}/>
@@ -70,17 +70,16 @@ const dateFormat = (date: string) => {
            </div>
         </div>
         <div className="flex justify-between text-sm">
-         
            <button 
              className={`py-2 px-14 bg-red-600 text-white rounded-full`} 
              disabled={auction.status === "ReserveNotMet" && 'Finished' ? true : false}>
              Place bid
            </button>
-           <button className="py-2 px-14 bg-gray-800 text-white rounded-full">
+           <Link href={`auctions/details/${auction.id}`} className="py-2 px-14 bg-gray-800 text-white rounded-full">
               Details
-           </button>
+           </Link>
         </div>
-      </a>
+      </Link>
     </div>
   );
 }
