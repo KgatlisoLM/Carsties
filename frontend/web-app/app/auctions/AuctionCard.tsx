@@ -7,6 +7,7 @@ import { FaRoad } from "react-icons/fa";
 import { GiCarWheel, GiGearStickPattern } from "react-icons/gi";
 import moment from "moment";
 import Link from "next/link";
+import CurrentBid from "./CurrentBid";
 
 type Props = {
   auction: Auction;
@@ -44,12 +45,17 @@ const dateFormat = (date: string) => {
             </div>
           </div>
         </div>
-        <div className="flex-col items-center mt-4 p-2">
-          <h3 className="text-blue-600 text-sm font-bold">
+        <div className="flex items-center mt-4 p-2 justify-between">
+          <div>
+           <h3 className="text-blue-600 text-sm font-bold">
             R {zaFormat(auction.reservePrice)}
-          </h3>
-          <p className="font-semibold text-sm">{auction.make} {auction.model} {auction.year}</p>
-          <div className="text-xs text-gray-400">{dateFormat(auction.createdAt) } - {dateFormat(auction.auctionEnd)}</div> 
+            </h3>
+            <p className="font-semibold text-sm">{auction.make} {auction.model} {auction.year}</p>
+            <div className="text-xs text-gray-400">{dateFormat(auction.createdAt) } - {dateFormat(auction.auctionEnd)}</div> 
+          </div>
+           <div>
+              <CurrentBid reservePrice={auction.reservePrice} amount={auction.currentHighBid} />
+           </div>
         </div>
         <div className="flex justify-between p-2">
            <div className="flex flex-col items-center border-2 p-2 rounded-xl shadow-md">
