@@ -21,6 +21,9 @@ export type Auction = {
     color: string
     mileage: number
     imageUrl: string
+    engine: string
+    drivenWheels: string
+    transmission: string
 }
 
 export type Bid = {

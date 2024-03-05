@@ -20,13 +20,13 @@ public class SeedData
 
         if(userMgr.Users.Any()) return;
 
-        var alice = userMgr.FindByNameAsync("alice").Result;
+        var alice = userMgr.FindByNameAsync("jane").Result;
         if (alice == null)
         {
             alice = new ApplicationUser
             {
-                UserName = "alice",
-                Email = "AliceSmith@email.com",
+                UserName = "jane",
+                Email = "JaneSmith@email.com",
                 EmailConfirmed = true,
             };
             var result = userMgr.CreateAsync(alice, "Pass123$").Result;
@@ -36,26 +36,26 @@ public class SeedData
             }
 
             result = userMgr.AddClaimsAsync(alice, new Claim[]{
-                    new Claim(JwtClaimTypes.Name, "Alice Smith"),
+                    new Claim(JwtClaimTypes.Name, "Jane Smith"),
                 }).Result;
             if (!result.Succeeded)
             {
                 throw new Exception(result.Errors.First().Description);
             }
-            Log.Debug("alice created");
+            Log.Debug("jane created");
         }
         else
         {
-            Log.Debug("alice already exists");
+            Log.Debug("jane already exists");
         }
 
-        var bob = userMgr.FindByNameAsync("bob").Result;
+        var bob = userMgr.FindByNameAsync("john").Result;
         if (bob == null)
         {
             bob = new ApplicationUser
             {
-                UserName = "bob",
-                Email = "BobSmith@email.com",
+                UserName = "john",
+                Email = "JohnSmith@email.com",
                 EmailConfirmed = true
             };
             var result = userMgr.CreateAsync(bob, "Pass123$").Result;
@@ -65,17 +65,17 @@ public class SeedData
             }
 
             result = userMgr.AddClaimsAsync(bob, new Claim[]{
-                        new Claim(JwtClaimTypes.Name, "Bob Smith"),
+                        new Claim(JwtClaimTypes.Name, "John Smith"),
                     }).Result;
             if (!result.Succeeded)
             {
                 throw new Exception(result.Errors.First().Description);
             }
-            Log.Debug("bob created");
+            Log.Debug("john created");
         }
         else
         {
-            Log.Debug("bob already exists");
+            Log.Debug("john already exists");
         }
     }
 }

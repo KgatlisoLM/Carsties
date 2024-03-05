@@ -1,16 +1,10 @@
 import { createWithEqualityFn } from "zustand/traditional"
 
-
 type State = {
     pageNumber: number
     pageSize: number
-    pageCount: number
     searchTerm: string
     searchValue: string
-    orderBy: string
-    filterBy: string
-    seller?: string
-    winner?: string
 }
 
 type Actions = {
@@ -22,13 +16,8 @@ type Actions = {
 const initialState: State = {
     pageNumber: 1,
     pageSize: 12,
-    pageCount: 1,
     searchTerm: "",
     searchValue: "",
-    orderBy: "make",
-    filterBy: 'live',
-    seller: undefined,
-    winner: undefined,
 }
 
 

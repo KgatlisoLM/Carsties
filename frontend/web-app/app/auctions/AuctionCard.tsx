@@ -32,8 +32,6 @@ const dateFormat = (date: string) => {
    return date;
 }
 
-
-
   return (
     <div className="border-2 p-2 rounded-xl shadow-lg">
       <Link href={`auctions/details/${auction.id}`} className="group">
@@ -53,26 +51,27 @@ const dateFormat = (date: string) => {
             <p className="font-semibold text-sm">{auction.make} {auction.model} {auction.year}</p>
             <div className="text-xs text-gray-400">{dateFormat(auction.createdAt) } - {dateFormat(auction.auctionEnd)}</div> 
           </div>
-           <div>
+           <div className="flex flex-col">
+             <p className="text-xs mb-2 self-end">Highest bid</p>
               <CurrentBid reservePrice={auction.reservePrice} amount={auction.currentHighBid} />
            </div>
         </div>
         <div className="flex justify-between p-2">
            <div className="flex flex-col items-center border-2 p-2 rounded-xl shadow-md">
              <PiEngineFill className="w-6 h-6"/>
-             <span className="text-xs">2.0 LTR</span>  
+             <span className="text-xs">{auction.engine}</span>  
            </div>
            <div className="flex flex-col items-center border-2 p-2 rounded-xl shadow-md">
              <FaRoad className="w-6 h-6"/>
-             <span className="text-xs">{zaFormat(auction.mileage)} km</span>  
+             <span className="text-xs">{zaFormat(auction.mileage)} KM</span>  
            </div>
            <div className="flex flex-col items-center border-2 p-2 rounded-xl shadow-md">
              <GiGearStickPattern className="w-6 h-6"/>
-             <span className="text-xs">Automatic</span>  
+             <span className="text-xs uppercase">{auction.transmission}</span>  
            </div>
            <div className="flex flex-col items-center border-2 p-2 rounded-xl shadow-md">
              <GiCarWheel className="w-6 h-6"/>
-             <span className="text-xs">Rear Wheel</span>  
+             <span className="text-xs">{auction.drivenWheels}</span>  
            </div>
         </div>
         <div className="flex justify-between text-sm">

@@ -48,7 +48,6 @@ function Listings() {
     });
   }, [url]);
 
-  console.log("data", url);
 
   if (loading) return <h3>Loading...</h3>;
 

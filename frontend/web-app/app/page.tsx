@@ -11,28 +11,23 @@ export default function Home() {
         <Image
           src={car}
           alt="car zone"
-          className=" w-[100%] h-[500px] object-cover object-center relative"
+          className=" w-[100%] h-[600px] object-cover object-bottom"
           priority
         />
-        <div className="absolute top-32 p-10">
-          <h2 className="text-7xl font-bold uppercase text-white">
-            Let's Find
-          </h2>
-          <h2 className="text-7xl font-bold uppercase text-white">
-            your perfect match
-          </h2>
-          <h2 className="text-7xl font-bold uppercase text-white">
-            at Auction
-          </h2>
-          <button className="bg-red-500 text-white font-bold py-2 px-4 border-none rounded-full mt-10">
-            Let's Find
-          </button>
+        <div className="absolute top-[450px] p-10 flex flex-col justify-between w-full">
+          <div>
+            <h2 className="text-5xl font-bold uppercase text-white mb-3">
+              Let's Find  your perfect match 
+            </h2>
+          </div>
+          <div className="">
+            <SearchFilterBox />
+          </div>
         </div>
       </div>
       <main className="mx-auto px-6 pt-3">
-        <SearchFilterBox/>
-         <div className="container mt-5 mx-auto mb-5">
-          <Listings/>
+        <div className="container mt-5 mx-auto mb-5">
+          <Listings />
         </div>
       </main>
     </>

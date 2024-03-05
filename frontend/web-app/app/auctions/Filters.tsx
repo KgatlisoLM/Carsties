@@ -1,5 +1,5 @@
 import { useParamsStore } from '@/hooks/useParamsStore';
-import { Button, ButtonGroup } from 'flowbite-react';
+import { Button, ButtonGroup, Select } from 'flowbite-react';
 import React from 'react'
 import { AiOutlineClockCircle, AiOutlineSortAscending } from 'react-icons/ai';
 import { BsFillStopCircleFill, BsStopwatchFill } from 'react-icons/bs';
@@ -10,30 +10,26 @@ type Props = {
     setPageSize: (size: number) => void;
 }
 
-const pageSizeButtons = [4, 8, 12];
+const pageSizeOp = [4, 8, 12];
 
-const orderByButtons = [
+const orderByOp = [
     {
         label: 'Alphabetical',
-        icon: AiOutlineSortAscending,
         value: 'make'
     },
     {
         label: 'Recently added',
-        icon: BsFillStopCircleFill,
         value: 'new'
     }
 ]
 
-const filterByButtons = [
+const filterByOp = [
     {
         label: 'Live Auctions',
-        icon: GiFlame,
         value: 'live'
     },
     {
         label: 'Completed',
-        icon: BsStopwatchFill,
         value: 'finished'
     }
 ]
@@ -44,51 +40,59 @@ function Filters() {
   const pageSize = useParamsStore(state => state.pageSize);
   const setParams = useParamsStore(state => state.setParams);
   const orderBy = useParamsStore(state => state.orderBy);
-  const filterBy = useParamsStore(state => state.filterBy)
+  const filterBy = useParamsStore(state => state.filterBy);
+
+
+
 
   return (
     <div className='flex justify-between items-center mb-4'>
-           <div>
-            <Button.Group>
-                 {filterByButtons.map(({label, icon: Icon, value}) => (
-                   <Button 
-                     key={value}
-                     onClick={() => setParams({filterBy: value})}
-                     color={`${filterBy === value ? 'red' : 'gray'}`}>
-                     <Icon className='mr-3 h-4 w-4'/>
-                     {label}
-                  </Button>
-                 ))}
-            </Button.Group>
+
+          <div className='flex items-center gap-x-2'>
+              <span className='font-semibold'>
+                 Filter: 
+              </span>
+            {filterByOp.map(({label, value}) => (
+              <Button
+              key={value} 
+              onClick={() => setParams({filterBy: value})}
+               className={`rounded-full text-xs w-36 flex ${filterBy === value ? 'bg-red-500 text-white hover:text-red-500': ''}`} 
+                color={`${filterBy === value ? 'red' : 'gray'}`}>
+                  {label}
+              </Button>
+            ))}
+             
           </div>
 
-          <div>
-            <Button.Group>
-                 {orderByButtons.map(({label, icon: Icon, value}) => (
-                   <Button 
-                     key={value}
-                     onClick={() => setParams({orderBy: value})}
-                     color={`${orderBy === value ? 'red' : 'gray'}`}>
-                     <Icon className='mr-3 h-4 w-4'/>
-                     {label}
-                  </Button>
-                 ))}
-            </Button.Group>
+          <div className='flex items-center gap-x-2'>
+              <span className='font-semibold'>
+                 OrderBy: 
+              </span>
+              {orderByOp.map(({label, value}) => (
+              <Button 
+              key={value}
+              onClick={() => setParams({orderBy: value})}
+               className={`rounded-full text-xs w-36 flex ${orderBy === value ? 'bg-red-500 text-white hover:text-red-500': ''}`} 
+                color={`${orderBy === value ? 'red' : 'gray'}`}>
+                  {label}
+              </Button>
+            ))}
           </div>
 
-        <div>
-            <ButtonGroup>
-                {pageSizeButtons.map((value, i) => (
-                    <Button key={i} 
-                      onClick={() => setParams({pageSize: value})}
-                      color={`${pageSize === value ? 'red' : 'gray'}`}
-                      className='focus:ring-0'
-                     >
-                        {value}
-                    </Button>
-                ))}
-            </ButtonGroup>
-        </div>
+          <div className='flex items-center gap-x-2'>
+              <span className='font-semibold'>
+                 Items: 
+              </span>
+              {pageSizeOp.map((value, i) => (
+              <Button
+               key={i}
+               onClick={() => setParams({pageSize: value})}
+               className={`rounded-full text-xs flex ${pageSize === value ? 'bg-red-500 text-white hover:text-red-500': ''}`} 
+                color={`${pageSize === value ? 'red' : 'gray'}`}>
+                  {value}
+              </Button>
+            ))}
+          </div>
     </div>
   )
 }

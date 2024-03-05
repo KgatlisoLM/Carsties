@@ -1,10 +1,10 @@
 
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, GestureResponderEvent } from 'react-native'
 import React from 'react'
 import tw from "twrnc";
 type Props = {
     title: string,
-    onPress: any
+    onPress:  (event: GestureResponderEvent) => void;
     icon: any 
 }
 

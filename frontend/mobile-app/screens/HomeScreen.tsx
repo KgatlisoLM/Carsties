@@ -8,6 +8,7 @@ import {
   TextInput,
   ScrollView,
   FlatList,
+  ActivityIndicator,
 } from "react-native";
 import Constants from "expo-constants";
 import tw from "twrnc";
@@ -20,18 +21,38 @@ import {
 import { useEffect, useState } from "react";
 import Filters from "../components/filters";
 import AuctionCard from "../components/auctionCard";
+import { useParamsStore } from "../hooks/useParamsStore";
 
 const HomeScreen = () => {
   const [listings, setListings] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const searchValue = useParamsStore((state) => state.searchValue);
 
   useEffect(() => {
-    fetch(`http://192.168.18.184:6001/search?pageSize=10`)
-      .then((resp) => resp.json())
-      .then((data) => setListings(data?.results))
-      .catch((error) => console.error(error));
-  }, []);
+    fetchData();
+  }, [searchValue]);
 
-  console.log(listings);
+  const fetchData = async () => {
+    try {
+      const response = await fetch(
+        `http://192.168.18.184:6001/search?searchTerm=${searchValue}&pageSize=10`
+      );
+      const json = await response.json();
+      setListings(json.results);
+      setIsLoading(false);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setIsLoading(false);
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
+  }
 
   return (
     <SafeAreaView style={[styles.androidSafeView, tw`bg-white pt-5`]}>
@@ -72,36 +93,48 @@ const HomeScreen = () => {
       </View>
 
       {/* body */}
-     
-      {/* filters */}
-      <Filters />
-      {/* <ScrollView> */}
-      <View style={tw`mt-10 flex-row items-center justify-between px-6 mb-5`}>
-        <Text style={tw`font-bold text-lg`}>Live Auction</Text>
-        <Text style={tw`font-light text-xs`}>View All</Text>
+
+      <View style={tw`flex flex-col justify-between`}>
+        <View style={tw`mb-10`}>
+          {/* filters */}
+          <Filters />
+        </View>
+
+        <View>
+          <View style={tw`flex-row items-center justify-between px-6 mb-4`}>
+            <Text style={tw`font-bold text-lg`}>Live Auction</Text>
+            <Text style={tw`font-light text-xs`}>View All</Text>
+          </View>
+
+          {/* Listings */}
+          <FlatList
+            data={listings}
+            style={tw`m-5 my-auto`}
+            numColumns={1}
+            renderItem={({ item }) => (
+              <AuctionCard
+                id = {item.id}
+                imageUrl={item.imageUrl}
+                reservePrice={item.reservePrice}
+                model={item.model}
+                make={item.make}
+                mileage={item.mileage}
+                year={item.year}
+                currentHighBid={item.currentHighBid}
+                auctionEnd={item.auctionEnd}
+                color={item.color}
+                transmission={item.transmission}
+                engine={item.engine}
+                drivenWheels={item.drivenWheels}
+                status={item.status}
+
+              />
+            )}
+            keyExtractor={(item) => item.id}
+            showsVerticalScrollIndicator={false}
+          />
+        </View>
       </View>
-   
-        {/* Listings */}
-        <FlatList
-          data={listings}
-          style={tw`m-5 my-auto`}
-          numColumns={1}
-          renderItem={({ item }) => (
-            <AuctionCard
-              imageUrl={item.imageUrl}
-              reservePrice={item.reservePrice}
-              model={item.model}
-              make={item.make}
-              mileage={item.mileage}
-              year={item.year}
-              currentHighBid={item.currentHighBid}
-              auctionEnd={item.auctionEnd}
-            />
-          )}
-          keyExtractor={(item) => item.id}
-          showsVerticalScrollIndicator={false}
-        />
-      {/* </ScrollView> */}
     </SafeAreaView>
   );
 };

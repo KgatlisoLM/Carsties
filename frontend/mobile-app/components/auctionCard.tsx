@@ -2,23 +2,32 @@ import { View, Text, TouchableOpacity, Image, ScrollView } from "react-native";
 import React from "react";
 import tw from "twrnc";
 import { AntDesign } from "@expo/vector-icons";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { FontAwesome5 } from '@expo/vector-icons';
 import IconButton from "./IconButton";
 import CountDownTimer from "./CountDownTimer";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 type Props = {
+  id: string
   imageUrl: string;
-  reservePrice: string | number;
+  reservePrice: number;
   model: string;
   make: string;
   year: number;
   mileage: number;
   currentHighBid: number;
   auctionEnd: string
+  color:string;
+  transmission:string;
+  engine:string;
+  drivenWheels:string;
+  status: string
 };
 
 const auctionCard = ({
+  id,
   imageUrl,
   reservePrice,
   model,
@@ -26,8 +35,16 @@ const auctionCard = ({
   year,
   mileage,
   currentHighBid,
-  auctionEnd
+  auctionEnd,
+  color,
+  transmission,
+  engine,
+  drivenWheels,
+  status
 }: Props) => {
+  
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
+
   const zaFormat = (price: any) => {
     price = new Intl.NumberFormat("en-ZA", {
       currency: "ZAR",
@@ -36,6 +53,9 @@ const auctionCard = ({
 
     return price;
   };
+
+
+
 
   return (
     <TouchableOpacity style={tw`mb-3`}>
@@ -47,8 +67,9 @@ const auctionCard = ({
       />
       <View style={tw`p-2`}>
       <View style={tw`flex-row items-center`}>
-        <MaterialCommunityIcons name="timer-outline"  size={20} color="red" />
-         <CountDownTimer auctionEnd={auctionEnd}/>
+        <MaterialCommunityIcons name="timer-outline"  
+         size={20} color="black" style={tw`mr-2`} />
+        <CountDownTimer auctionEnd={auctionEnd}/>
       </View>
       <View style={tw`flex-row justify-between items-center`}>
         <Text style={tw`font-semibold text-lg`}>
@@ -88,13 +109,29 @@ const auctionCard = ({
         <View>
           <IconButton
             title={"Bid Now"}
-            onPress={""}
+            onPress={() => {
+               navigation.navigate('CarDetails', {
+                id,
+                imageUrl,
+                reservePrice,
+                model,
+                make,
+                year,
+                mileage,
+                currentHighBid,
+                auctionEnd,
+                color,
+                transmission,
+                engine,
+                drivenWheels,
+                status
+               })
+            }}
             icon={<FontAwesome5 name="arrow-right" size={12} color="white" />}
           />
         </View>
       </View>
       </View>
-    
     </TouchableOpacity>
   );
 };

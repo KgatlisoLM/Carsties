@@ -22,11 +22,13 @@ const renderer = ({
 }) => {
     return (
         <View>
-          {completed ? (
-           <Text style={tw`text-red-500 text-sm`}> Auction Completed</Text>
-          ): (
-            <Text style={tw`text-red-500 text-sm`}> End in {zeroPad(days)}d {zeroPad(hours)}h {zeroPad(minutes)}m {zeroPad(seconds)}s</Text>
-          )}
+          {completed ? 
+           <Text style={tw`text-red-500 text-sm`}>Auction Completed</Text>
+          : days === 0 && hours < 10 ?
+           <Text style={tw`text-gray-600 text-sm`}>{zeroPad(days)}d: {zeroPad(hours)}h: {zeroPad(minutes)}m: {zeroPad(seconds)}s</Text>
+          : 
+          <Text style={tw`text-gray-600 text-sm font-bold`}>{zeroPad(days)}d: {zeroPad(hours)}h: {zeroPad(minutes)}m: {zeroPad(seconds)}s</Text>
+          }
         </View>
     )
 }

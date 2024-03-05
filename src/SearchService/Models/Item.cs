@@ -19,5 +19,11 @@ public class Item : Entity
    public string Color { get; set; }
    public int Mileage { get; set; }
    public string ImageUrl { get; set; }
+
+   public string Transmission {get; set;}
+
+   public string Engine { get; set; }
+
+   public string DrivenWheels { get; set; }
 }
 

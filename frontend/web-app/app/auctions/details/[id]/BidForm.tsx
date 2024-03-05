@@ -40,7 +40,6 @@ function BidForm({auctionId, highBid}: Props) {
 
 
 
-
   return (
     <form onSubmit={handleSubmit(onSubmit)} className='flex items-center border-2 rounded-lg py-2'>
         <input

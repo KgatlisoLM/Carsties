@@ -8,7 +8,6 @@ type Props = {
   auctionEnd: string;
 };
 
-const currentUrl = window.location.pathname;
 
 const renderer = ({
   days,
@@ -23,6 +22,9 @@ const renderer = ({
   seconds: number;
   completed: boolean;
 }) => {
+
+  const currentUrl = window.location.pathname;
+
   return (
     <div
       className={` text-white py-2 px-3 ${
@@ -33,7 +35,7 @@ const renderer = ({
             ? `bg-red-600 ${currentUrl === "/" ? "bg-opacity-50" : ""} `
             : days === 0 && hours < 10
             ? "bg-amber-600"
-            : `bg-green-600 ${currentUrl === "/" ? "bg-opacity-50" : ""}`
+            : ` ${currentUrl === "/" ? "bg-gray-600 bg-opacity-50" : "bg-green-600"}`
         }`}
     >
       {completed ? (
